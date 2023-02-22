@@ -1,65 +1,88 @@
 import React from "react";
 
-const useComputerinteligence = (computerCards, setComputerCards, playerSelectedCard, setTurn) => {
+const useComputerinteligence = (computerCards, setComputerCards, playerSelectedCard, turn, setTurn) => {
   const [computerSelectedCard, setComputerSelectedCard] = React.useState({});
+  const [gameDifficult, setGameDifficult] = React.useState('Hard');
 
-  function computerTurn() {
+  React.useEffect(() => {
     const {card: playerCard, statIndex, statName} = playerSelectedCard;
+    let computerID;
+    let computerIndex;
 
-      // Inteligencia do computador - Intermediario
-      // Escolhe a carta mais forte do que o adversário
-      // Se não houver, escolhe qualquer uma
+    
+    if (turn === 'Computer' && playerSelectedCard.card && !computerSelectedCard.card) {
+      // Escolhe uma carta de forma aleatória
+      if (gameDifficult === 'Easy') {
+        computerID = Math.floor(Math.random() * computerCards.length);
 
-      // let computerID = computerCards.findIndex((card) => {
-      //   if (statIndex !== 6) {
-      //     return card.stats[statIndex].base_stat > playerCard.stats[statIndex].base_stat;
-      //   } else {
-      //     return card.weight > playerCard.weight;
-      //   }
-      // })
+      } else if (gameDifficult === "Medium") {
+        // Escolhe a carta mais forte do que o adversário (Escolhe aleatoriamente uma das mais fortes), se não houver, escolhe qualquer uma
+        const bestCards = computerCards.filter((card) => card.stats[statIndex].base_stat > playerCard.stats[statIndex].base_stat);
 
-      // if (computerID === -1) {
-      //   computerID = Math.floor(Math.random() * computerCards.length);
-      // }
+          if (bestCards.lenght) {
+            computerID = computerCards.findIndex((card) => (card.stats[statIndex].base_stat === bestCards[Math.floor(Math.random() * bestCards.length)].stats[statIndex].base_stat));
+          } else {
+            computerID = Math.floor(Math.random() * computerCards.length);
+          }
+        
+      } else if (gameDifficult === 'Hard') {
+      // Escolhe a carta mais forte do que a do adversario, porem a mais fraca do proprio baralho, se não houver, escolhe a que tem o menor stat
+      const bestCards = computerCards.filter((card) => card.stats[statIndex].base_stat > playerCard.stats[statIndex].base_stat).map((card) => card.stats[statIndex].base_stat);
+      computerID = computerCards.findIndex((card) => card.stats[statIndex].base_stat === Math.min.apply(Math, bestCards));
 
-      // Inteligencia do computador - Dificil
-      // Escolhe a carta mais forte do que a do adversario, porem a mais fraca do proprio baralho
-      // Se não houver, escolhe a que tem o menor stat
-      let betterCards;
-      let computerID;
-      
-      if (statIndex !== 6) {
-        betterCards = computerCards.filter((card) => card.stats[statIndex].base_stat > playerCard.stats[statIndex].base_stat).map((card) => card.stats[statIndex].base_stat);
-        computerID = computerCards.findIndex((card) => card.stats[statIndex].base_stat === Math.min.apply(Math, betterCards));
-      } else {
-        betterCards = computerCards.filter((card) => card.weight > playerCard.weight).map((card) => card.weight);
-        computerID = computerCards.findIndex((card) => card.weight === Math.min.apply(Math, betterCards));
-      }
-
-      let worstCards;
-
-      if (computerID === -1) {
-        if (statIndex !== 6) {
-          worstCards = computerCards.filter((card) => card.stats[statIndex].base_stat <= playerCard.stats[statIndex].base_stat).map((card) => card.stats[statIndex].base_stat);
+        if (computerID === -1) {
+          const worstCards = computerCards.filter((card) => card.stats[statIndex].base_stat <= playerCard.stats[statIndex].base_stat).map((card) => card.stats[statIndex].base_stat);
           computerID = computerCards.findIndex((card) => card.stats[statIndex].base_stat === Math.min.apply(Math, worstCards));
-        } else {
-          worstCards = computerCards.filter((card) => card.weight <= playerCard.weight).map((card) => card.weight);
-          computerID = computerCards.findIndex((card) => card.weight === Math.min.apply(Math, worstCards));
         }
       }
 
-      // Inteligencia do computador - Expert
-      // Escolhe a carta mais forte do que a do adversario, porem a carta que tenha todos os stats menores do que as demais
-      // Se não houver, escolhe a carta que tenha todos stats menores do que as demais
-      
       setTimeout(() => {
-        setComputerSelectedCard({card:computerCards[computerID],statName, statIndex})
+        setComputerSelectedCard({card:computerCards[computerID], statName, statIndex})
         setComputerCards(computerCards.filter((card, index) => index !== computerID))
-        setTurn('Player')
       }, 2000)
-  }
+      
+    } else if (turn === "Computer" && !playerSelectedCard.card && !computerSelectedCard.card) {
+      // Escolhe uma carta e stat de forma aleatória
+      if (gameDifficult === 'Easy') {
+        computerIndex = Math.floor(Math.random() * computerCards[0].stats.length);
+        computerID = Math.floor(Math.random() * computerCards.length);
 
-  return {computerTurn, computerSelectedCard, setComputerSelectedCard};
+      } if (gameDifficult === 'Medium') {
+        // Escolhe aleatoriamente um stat, e pega o mais forte
+        computerIndex = Math.floor(Math.random() * computerCards[0].stats.length);
+        const bestStat = computerCards.map((card) => card.stats[computerIndex].base_stat)
+        computerID = computerCards.findIndex((card) => card.stats[computerIndex].base_stat === Math.max.apply(Math, bestStat));
+
+      } else if (gameDifficult === 'Hard') {
+      // Escolhe o melhor stat
+      const allStats = computerCards.map((card) => card.stats.map((stat) => stat.base_stat));
+      let bestStat = {value: 0, cardIndex: 0, statIndex: 0};
+    
+      allStats.forEach((array, cardIndex) => {
+       array.forEach((value, statIndex) => {
+        if(value > bestStat.value) {
+          bestStat.value = value;
+          bestStat.cardIndex = cardIndex;
+          bestStat.statIndex = statIndex;
+        }
+       })
+      })
+
+      computerID = bestStat.cardIndex;
+      computerIndex = bestStat.statIndex;
+      }
+
+      setTimeout(() => {
+        setComputerSelectedCard({card:computerCards[computerID], statIndex: computerIndex})
+        setComputerCards(computerCards.filter((card, index) => index !== computerID))
+        setTurn('Player');
+      }, 2000)
+    }
+
+
+  }, [computerCards, setComputerCards, playerSelectedCard, computerSelectedCard ,setTurn, turn, gameDifficult])
+
+  return {computerSelectedCard, setComputerSelectedCard};
 
 }
 

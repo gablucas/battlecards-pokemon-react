@@ -10,7 +10,7 @@ export const Computer = styled.div`
 
   & > div {
     display: grid;
-    grid-template-columns: repeat(6, auto);
+    grid-template-columns: repeat(8, auto);
     align-items: end;
     gap: 20px;
     
@@ -58,7 +58,7 @@ export const Battle = styled.div`
 
 export const Player = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, auto);
+  grid-template-columns: repeat(8, auto);
   justify-content: center;
   align-items: end;
   gap: 20px;

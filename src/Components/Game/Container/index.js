@@ -12,22 +12,20 @@ const Game = () => {
   const [playerSelectedCard, setPlayerSelectedCard] = React.useState({});
 
   const { playerCards, setPlayerCards, computerCards, setComputerCards } = useStartgame();
-  const { computerTurn, computerSelectedCard, setComputerSelectedCard } = useComputerinteligence(computerCards, setComputerCards, playerSelectedCard, setTurn);
-  const score = useScore(playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard)
+  const { computerSelectedCard, setComputerSelectedCard } = useComputerinteligence(computerCards, setComputerCards, playerSelectedCard, turn, setTurn);
+  const score = useScore(playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard, setTurn)
 
-  function play(id, statIndex, statName, e) {
-    if (!playerSelectedCard.card) {
-      setPlayerSelectedCard({card: playerCards[id], statName, statIndex})
-      setPlayerCards(playerCards.filter((card, index) => index !== id))
-      setTurn('Computer')
+  function play(id, statIndex) {
+    if (!playerSelectedCard.card && !computerSelectedCard.card && turn === "Player") {
+      setPlayerSelectedCard({card: playerCards[id], statIndex});
+      setPlayerCards(playerCards.filter((card, index) => index !== id));
+      setTurn('Computer');
+    } else if (!playerSelectedCard.card && computerSelectedCard.card && turn === "Player" && statIndex === computerSelectedCard.statIndex) {
+      setPlayerSelectedCard({card: playerCards[id], statIndex});
+      setPlayerCards(playerCards.filter((card, index) => index !== id));
+      setTurn('Computer');
     }
   }
-
-  React.useEffect(() => {
-    if (turn === 'Computer') {
-      computerTurn()
-    }
-  }, [turn, computerTurn])
 
 
 return (

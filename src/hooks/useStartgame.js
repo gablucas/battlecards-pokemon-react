@@ -11,11 +11,11 @@ const useStartgame = () => {
 
     async function getCards() {
 
-      for (let i = 1; i <= 12; i++) {
+      for (let i = 1; i <= 14; i++) {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 1008) + 1}`);
         const json = await response.json();
 
-        if (i <= 6) {
+        if (i <= 7) {
           playerNewCards.push(json)
         } else {
           computerNewCards.push(json)

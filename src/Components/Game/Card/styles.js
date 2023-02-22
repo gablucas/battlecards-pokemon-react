@@ -2,7 +2,7 @@ import styled from "styled-components";
 import pokemonbg from '../../../assets/bg/pokemonbg.svg'
 
 export const Container = styled.div`
-  width: 280px;
+  width: 240px;
 
   padding: 20px;
   border-radius: 10px;
@@ -35,6 +35,7 @@ export const Stats = styled.ul`
   list-style: none;
   font-size: .875rem;
   color: #FFF;
+  text-transform: capitalize;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 
   li {

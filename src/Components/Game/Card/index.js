@@ -1,7 +1,8 @@
 import React from 'react';
 import { Container, Content, Name, Stats, StyledImage } from './styles';
 
-const Card = ({ data, selectAttribute, id }) => {
+const Card = ({id, data, selectAttribute, cardIndex }) => {
+  console.log(data)
 
 return (
     <Container>
@@ -12,13 +13,10 @@ return (
 
         <Name>{data.name}</Name>
         <Stats>
-          <li onClick={(e) => selectAttribute(id, 0, 'Vida', e)}>Vida <span>{data.stats[0].base_stat}</span></li>
-          <li onClick={(e) => selectAttribute(id, 1, 'Ataque', e)}>Ataque <span>{data.stats[1].base_stat}</span></li>
-          <li onClick={(e) => selectAttribute(id, 2, 'Defesa', e)}>Defesa <span>{data.stats[2].base_stat}</span></li>
-          <li onClick={(e) => selectAttribute(id, 3, 'Ataque Especial', e)}>Ataque Especial <span>{data.stats[3].base_stat}</span></li>
-          <li onClick={(e) => selectAttribute(id, 4, 'Defesa Esepcial', e)}>Defesa Especial <span>{data.stats[4].base_stat}</span></li>
-          <li onClick={(e) => selectAttribute(id, 5, 'Velocidade', e)}>Velocidade <span>{data.stats[5].base_stat}</span></li>
-          <li onClick={(e) => selectAttribute(id, 6, 'Peso', e)}>Peso <span>{data.weight}</span></li>
+          {data.stats.map((stat, statIndex) => (
+            <li key={statIndex} onClick={(e) => selectAttribute(id, statIndex, e)}>{stat.stat.name} <span>{stat.base_stat}</span></li>
+          ))}
+          
         </Stats>
       </Content>
     </Container>
@@ -28,6 +26,7 @@ return (
 export default Card
 
 const BattleCard = ({ data }) => {
+  console.log(data)
 
   return (
       <Container>
@@ -38,7 +37,7 @@ const BattleCard = ({ data }) => {
   
           <Name>{data.card.name}</Name>
           <Stats>
-            <li>{data.card.statName}<span>{data.stat !== 6 ? data.card.stats[data.statIndex].base_stat : data.card.weight}</span></li>
+            <li>{data.card.stats[data.statIndex].stat.name}<span>{data.card.stats[data.statIndex].base_stat}</span></li>
 
           </Stats>
         </Content>
