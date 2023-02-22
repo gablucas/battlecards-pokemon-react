@@ -38,7 +38,7 @@ const BattleCard = ({ data }) => {
   
           <Name>{data.card.name}</Name>
           <Stats>
-            <li>{data.statName}<span>{data.stat !== 6 ? data.card.stats[data.stat].base_stat : data.card.weight}</span></li>
+            <li>{data.card.statName}<span>{data.stat !== 6 ? data.card.stats[data.statIndex].base_stat : data.card.weight}</span></li>
 
           </Stats>
         </Content>
