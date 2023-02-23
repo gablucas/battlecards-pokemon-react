@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 1920px;
     margin: 0 auto;
     -webkit-font-smoothing: antialised;
-    width: 100%;
+    height: 100vh;
     background: url(${background}) center no-repeat;
   }
   
@@ -23,6 +23,7 @@ export const GlobalStyle = createGlobalStyle`
     background: none;
     outline: none;
     border: none;
+    color: inherit;
   }
 
   a {

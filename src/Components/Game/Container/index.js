@@ -7,6 +7,8 @@ import { useStartgame } from '../../../hooks/useStartgame';
 import { useComputerinteligence } from '../../../hooks/useComputerInteligence';
 import { useScore } from '../../../hooks/useScore';
 import { useRound } from '../../../hooks/useRound';
+import { GlobalContext } from '../../Context';
+import { useNavigate } from 'react-router-dom';
 
 const Game = () => {
   const [turn, setTurn] = React.useState('Player');
@@ -17,10 +19,17 @@ const Game = () => {
   const score = useScore(playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard, setTurn)
   const {round, scoreRound} = useRound(getCards, score)
 
+  const { startGame } = React.useContext(GlobalContext)
+  const navigate = useNavigate();
+
 
   React.useEffect(() => {
-    getCards()
-  }, [getCards])
+    if (startGame) {
+      getCards()
+    } else {
+      navigate('/')
+    }
+  }, [getCards, startGame, navigate])
 
 
   function play(id, statIndex) {
