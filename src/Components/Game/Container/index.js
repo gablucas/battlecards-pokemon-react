@@ -4,23 +4,23 @@ import { FakeCard } from '../Card/styles';
 import { Container, Player, Battle, Computer, Score } from './styles';
 import computer from '../../../assets/others/computer.png';
 import { useStartgame } from '../../../hooks/useStartgame';
-import { useComputerinteligence } from '../../../hooks/useComputerInteligence';
+import { useComputer } from '../../../hooks/useComputer';
 import { useScore } from '../../../hooks/useScore';
 import { useRound } from '../../../hooks/useRound';
+import usePlayer from '../../../hooks/usePlayer';
 import { GlobalContext } from '../../Context';
 import { useNavigate } from 'react-router-dom';
+import useUtilies from '../../../hooks/useUtilies';
 
 const Game = () => {
-  const [turn, setTurn] = React.useState('Player');
-  const [playerSelectedCard, setPlayerSelectedCard] = React.useState({});
-
-  const { getCards, playerCards, setPlayerCards, computerCards, setComputerCards } = useStartgame();
-  const { computerSelectedCard, setComputerSelectedCard } = useComputerinteligence(computerCards, setComputerCards, playerSelectedCard, turn, setTurn);
-  const score = useScore(playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard, setTurn)
+  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard } = React.useContext(GlobalContext)
+  const getCards = useStartgame();
+  useComputer();
+  const score = useScore()
   const {round, scoreRound} = useRound(getCards, score)
-
-  const { startGame } = React.useContext(GlobalContext)
+  const PlayerTurn = usePlayer();
   const navigate = useNavigate();
+  const { isObjectEmpty } = useUtilies();
 
 
   React.useEffect(() => {
@@ -31,18 +31,6 @@ const Game = () => {
     }
   }, [getCards, startGame, navigate])
 
-
-  function play(id, statIndex) {
-    if (!playerSelectedCard.card && !computerSelectedCard.card && turn === "Player") {
-      setPlayerSelectedCard({card: playerCards[id], statIndex});
-      setPlayerCards(playerCards.filter((card, index) => index !== id));
-      setTurn('Computer');
-    } else if (!playerSelectedCard.card && computerSelectedCard.card && turn === "Player" && statIndex === computerSelectedCard.statIndex) {
-      setPlayerSelectedCard({card: playerCards[id], statIndex});
-      setPlayerCards(playerCards.filter((card, index) => index !== id));
-      setTurn('Computer');
-    }
-  }
 
 
 return (
@@ -71,13 +59,13 @@ return (
       </Computer>
 
       <Battle>
-        {playerSelectedCard.card && <BattleCard data={playerSelectedCard} />}
-        {computerSelectedCard.card && <BattleCard data={computerSelectedCard} />}
+        {isObjectEmpty(playerSelectedCard) && <BattleCard data={playerSelectedCard} />}
+        {isObjectEmpty(computerSelectedCard) && <BattleCard data={computerSelectedCard} />}
       </Battle>
 
       <Player>
         {playerCards.map((card, index) => (
-          <Card key={index} data={card} id={index} selectAttribute={play} />
+          <Card key={index} data={card} id={index} selectAttribute={PlayerTurn} />
         ))}
       </Player>
     </Container>

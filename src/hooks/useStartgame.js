@@ -1,8 +1,8 @@
 import React from 'react';
+import { GlobalContext } from '../Components/Context';
 
 const useStartgame = () => {
-  const [playerCards, setPlayerCards] = React.useState([])
-  const [computerCards, setComputerCards] = React.useState([]);
+  const {setPlayerCards, setComputerCards} = React.useContext(GlobalContext);
 
   const getCards = React.useCallback(async () => {
     const playerNewCards = [];
@@ -20,9 +20,10 @@ const useStartgame = () => {
       }
       setPlayerCards(playerNewCards)
       setComputerCards(computerNewCards)
-  }, [])
+  }, [setPlayerCards ,setComputerCards])
 
-  return { getCards, playerCards, setPlayerCards, computerCards, setComputerCards }
+  return getCards;
+
 }
 
 export { useStartgame }
