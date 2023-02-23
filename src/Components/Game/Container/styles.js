@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
+
 export const Container = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
@@ -25,6 +26,7 @@ export const Computer = styled.div`
     height: 500px;
     
     position: absolute;
+    top: 14%;
     left: 50%;
     transform: translateX(-50%);
     z-index: -1000;
@@ -65,22 +67,37 @@ export const Player = styled.div`
   height: calc(100vh - 80px);
 `
 
-const Score = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const Score = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;;
   font-size: 2rem;
   font-weight: 800;
+  color: #FFFFFF;
+  border-radius: 8px;
+  border: 2px solid #000000;
+  box-shadow: 0 0 0 2px #FFA700, 0 0 0 4px #ffd689, 0 0 0 6px #000000;
+  overflow: hidden;
 
   position: absolute;
-`
 
-export const PlayerScore = styled(Score)`
-  color: fuchsia;
-  left: 100px;
-`
+  & > span {
+    grid-column: 1/-1;
+    text-align: center;
+    background: #FFA700;
+  }
+  
+  div {
+    display: grid;
+    justify-items: center;
+    padding: 20px;
+    
+  }
 
-export const ComputerScore = styled(Score)`
-  color: orangered;
-  right: 100px
+  div:nth-child(2) {
+    background: fuchsia;
+  }
+
+  div:nth-child(3) {
+    background: orangered;
+  }
 `
