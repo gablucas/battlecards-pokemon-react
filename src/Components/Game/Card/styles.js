@@ -1,25 +1,29 @@
 import styled from "styled-components";
 import pokemonbg from '../../../assets/bg/pokemonbg.svg'
+import cardback from '../../../assets/bg/cardback.png'
+import cardfront from '../../../assets/bg/cardfront.png'
 
 export const Container = styled.div`
   width: 240px;
 
-  padding: 20px;
+  padding: 12px;
   border-radius: 10px;
-  background-color: #F8E145;
+  background: linear-gradient(#FCD705, #e7c500);
 `
 export const Content = styled.div`
   display: grid;
-  border: 4px solid #EBEF78;
-  box-shadow: 1px 1px #000, -1px -1px #000, inset 1px 1px, inset -1px -1px;
+  padding: 12px;
+  background: url(${cardfront}) center no-repeat;
 `
 
 export const Name = styled.span`
-  font-weight: 800;
+
   text-transform: capitalize;
+  letter-spacing: 2px;
   text-align: center;
   color: #FFF;
-  background: #5BCAED;
+  background: #FCD705;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 `
 
 export const StyledImage = styled.div`
@@ -27,13 +31,14 @@ export const StyledImage = styled.div`
   justify-content: center;
   align-items: center;
   height: 100px;
+  margin-bottom: 10px;
   background: url(${pokemonbg});
 `
 
 export const Stats = styled.ul`
-  padding: 10px;
   list-style: none;
   font-size: .875rem;
+  font-weight: 700;
   color: #FFF;
   text-transform: capitalize;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -42,7 +47,6 @@ export const Stats = styled.ul`
     display: flex;
     justify-content: space-between;
     padding: 2px 4px;
-    font-weight: 500;
     margin-bottom: 4px;
     background: #788090;
     cursor: pointer;
@@ -62,5 +66,6 @@ export const FakeCard = styled.div`
   height: 400px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #121212;
+  background: url(${cardback}) center no-repeat;
+  background-size: 100%;
 `

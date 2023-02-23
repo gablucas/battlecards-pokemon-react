@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import background from '../assets/bg/background.png';
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -10,8 +11,11 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   body {
+    max-width: 1920px;
     margin: 0 auto;
     -webkit-font-smoothing: antialised;
+    width: 100%;
+    background: url(${background}) center no-repeat;
   }
   
   button {

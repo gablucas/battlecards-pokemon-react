@@ -1,19 +1,27 @@
 import React from 'react';
 import Card, { BattleCard } from '../Card';
 import { FakeCard } from '../Card/styles';
-import { Container, Player, Battle, Computer, PlayerScore, ComputerScore } from './styles';
+import { Container, Player, Battle, Computer, Score } from './styles';
 import computer from '../../../assets/others/computer.png';
 import { useStartgame } from '../../../hooks/useStartgame';
 import { useComputerinteligence } from '../../../hooks/useComputerInteligence';
 import { useScore } from '../../../hooks/useScore';
+import { useRound } from '../../../hooks/useRound';
 
 const Game = () => {
   const [turn, setTurn] = React.useState('Player');
   const [playerSelectedCard, setPlayerSelectedCard] = React.useState({});
 
-  const { playerCards, setPlayerCards, computerCards, setComputerCards } = useStartgame();
+  const { getCards, playerCards, setPlayerCards, computerCards, setComputerCards } = useStartgame();
   const { computerSelectedCard, setComputerSelectedCard } = useComputerinteligence(computerCards, setComputerCards, playerSelectedCard, turn, setTurn);
   const score = useScore(playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard, setTurn)
+  const {round, scoreRound} = useRound(getCards, score)
+
+
+  React.useEffect(() => {
+    getCards()
+  }, [getCards])
+
 
   function play(id, statIndex) {
     if (!playerSelectedCard.card && !computerSelectedCard.card && turn === "Player") {
@@ -30,15 +38,19 @@ const Game = () => {
 
 return (
     <Container>
-      <PlayerScore>
-        <span>Você</span>
-        <span>{score.player}</span>
-      </PlayerScore>
+      <Score>
+        <span>Round: {round}</span>
 
-      <ComputerScore>
-        <span>BMO</span>
-        <span>{score.computer}</span>
-      </ComputerScore>
+        <div>
+          <span>Você</span>
+          <span>{scoreRound.player}</span>
+        </div>
+
+        <div>
+          <span>BMO</span>
+          <span>{scoreRound.computer}</span>
+        </div>
+      </Score>
 
       <Computer>
         <img src={computer} alt="" />
