@@ -1,7 +1,8 @@
 import React from 'react';
+import { GlobalContext } from '../../Context';
 import { Container, Content, Name, Stats, StyledImage } from './styles';
 
-const Card = ({id, data, selectAttribute, cardIndex }) => {
+const Card = ({ id, data, selectAttribute }) => {
 
 return (
     <Container>
@@ -26,18 +27,19 @@ return (
 export default Card
 
 const BattleCard = ({ data }) => {
+  const {selectedStat} = React.useContext(GlobalContext);
 
   return (
       <Container>
         <Content>
-          <Name>{data.card.name}</Name>
+          <Name>{data.name}</Name>
 
           <StyledImage>
-            <img src={data.card.sprites.front_default} alt="" /> 
+            <img src={data.sprites.front_default} alt="" /> 
           </StyledImage>
   
           <Stats>
-            <li>{data.card.stats[data.statIndex].stat.name}<span>{data.card.stats[data.statIndex].base_stat}</span></li>
+            <li>{data.stats[selectedStat].stat.name}<span>{data.stats[selectedStat].base_stat}</span></li>
 
           </Stats>
         </Content>
