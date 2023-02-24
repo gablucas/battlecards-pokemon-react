@@ -1,11 +1,12 @@
 import React from 'react';
 import { GlobalContext } from '../../Context';
-import { Container, Content, Name, Stats, StyledImage } from './styles';
+import { Container, ContainerBattleCard, Content, Name, Stat, Stats, StyledImage } from './styles';
 
-const Card = ({ id, data, selectAttribute }) => {
+const Card = ({ id, data, selectAttribute, animationTime }) => {
+  const { selectedStat, animate } = React.useContext(GlobalContext);
 
 return (
-    <Container>
+    <Container animationTime={animationTime} >
       <Content>
         <Name>{data.name}</Name>
         
@@ -15,7 +16,7 @@ return (
 
         <Stats>
           {data.stats.map((stat, statIndex) => (
-            <li key={statIndex} onClick={(e) => selectAttribute(id, statIndex, e)}>{stat.stat.name} <span>{stat.base_stat}</span></li>
+            <Stat key={statIndex} onClick={(e) => selectAttribute(id, statIndex, e)} animate={animate} selectedStat={selectedStat} thisStat={statIndex}>{stat.stat.name} <span>{stat.base_stat}</span></Stat>
           ))}
           
         </Stats>
@@ -30,7 +31,7 @@ const BattleCard = ({ data }) => {
   const {selectedStat} = React.useContext(GlobalContext);
 
   return (
-      <Container>
+      <ContainerBattleCard>
         <Content>
           <Name>{data.name}</Name>
 
@@ -39,11 +40,11 @@ const BattleCard = ({ data }) => {
           </StyledImage>
   
           <Stats>
-            <li>{data.stats[selectedStat].stat.name}<span>{data.stats[selectedStat].base_stat}</span></li>
+            <Stat>{data.stats[selectedStat].stat.name}<span>{data.stats[selectedStat].base_stat}</span></Stat>
 
           </Stats>
         </Content>
-      </Container>
+      </ContainerBattleCard>
     )
   }
 

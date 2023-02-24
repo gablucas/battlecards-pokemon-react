@@ -55,22 +55,22 @@ export const Trunfo = styled(Button)`
 `
 
 export const Easy = styled(Button)`
-  filter: ${props => props.selected === 'Easy' && 'grayscale(0)'};
+  filter: ${props => props.selected === 'easy' && 'grayscale(0)'};
   background: #4B974C;
 `
 
 export const Medium = styled(Button)`
-  filter: ${props => props.selected === 'Medium' && 'grayscale(0)'};
+  filter: ${props => props.selected === 'medium' && 'grayscale(0)'};
   background: #574EC2;
 `
 
 export const Hard = styled(Button)`
-  filter: ${props => props.selected === 'Hard' && 'grayscale(0)'};
+  filter: ${props => props.selected === 'hard' && 'grayscale(0)'};
   background: #FE0000;
 `
 
 export const Human = styled(Button)`
-  filter: ${props => props.selected === 'Human' && 'grayscale(0)'};
+  filter: ${props => props.selected === 'human' && 'grayscale(0)'};
   background: #FFA700;
 `
 
@@ -113,19 +113,19 @@ export const ModeDescription = styled(Description)`
 export const DifficultDescription = styled(Description)`
 
   p:nth-child(1) {
-    display: ${props => props.selected === 'Human' && 'initial'};
+    display: ${props => props.selected === 'easy' && 'initial'};
   }
 
   p:nth-child(2) {
-    display: ${props => props.selected === 'Easy' && 'initial'};
+    display: ${props => props.selected === 'medium' && 'initial'};
   }
 
   p:nth-child(3) {
-    display: ${props => props.selected === 'Medium' && 'initial'};
+    display: ${props => props.selected === 'hard' && 'initial'};
   }
 
   p:nth-child(4) {
-    display: ${props => props.selected === 'Hard' && 'initial'};
+    display: ${props => props.selected === 'human' && 'initial'};
   }
 
 `

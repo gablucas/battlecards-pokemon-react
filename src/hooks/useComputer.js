@@ -1,91 +1,133 @@
 import React from "react";
 import { GlobalContext } from "../Components/Context";
-import useUtilies from "../hooks/useUtilies";
 
 const useComputer = () => {
-  const {computerCards, setComputerCards ,playerSelectedCard, computerSelectedCard, setComputerSelectedCard, difficult, selectedStat, setSelectedStat, turn, setTurn} = React.useContext(GlobalContext)
-  const { isObjectEmpty } = useUtilies();
+  const {computerCards, playerSelectedCard, selectedStat } = React.useContext(GlobalContext)
 
-  React.useEffect(() => {
-    let computerID;
-    let computerIndex;
+  // Escolhe uma carta de forma aleatória
+  function easyPlayLater() {
+    return Math.floor(Math.random() * computerCards.length);
+  }
 
-    
-    if (turn === 'Computer' && isObjectEmpty(playerSelectedCard) && !isObjectEmpty(computerSelectedCard)) {
-      // Escolhe uma carta de forma aleatória
-      if (difficult === 'Easy') {
-        computerID = Math.floor(Math.random() * computerCards.length);
+  // Escolhe a carta mais forte do que o adversário (Escolhe aleatoriamente uma das mais fortes), se não houver, escolhe qualquer uma
+  function mediumPlayLater() {
+    const bestCards = computerCards.filter((card) => card.stats[selectedStat].base_stat > playerSelectedCard.stats[selectedStat].base_stat);
 
-      } else if (difficult === "Medium") {
-        // Escolhe a carta mais forte do que o adversário (Escolhe aleatoriamente uma das mais fortes), se não houver, escolhe qualquer uma
-        const bestCards = computerCards.filter((card) => card.stats[selectedStat].base_stat > playerSelectedCard.stats[selectedStat].base_stat);
+    if (bestCards.lenght) {
+      return computerCards.findIndex((card) => (card.stats[selectedStat].base_stat === bestCards[Math.floor(Math.random() * bestCards.length)].stats[selectedStat].base_stat));
+    } else {
+      return Math.floor(Math.random() * computerCards.length);
+    }
+  }
 
-          if (bestCards.lenght) {
-            computerID = computerCards.findIndex((card) => (card.stats[selectedStat].base_stat === bestCards[Math.floor(Math.random() * bestCards.length)].stats[selectedStat].base_stat));
-          } else {
-            computerID = Math.floor(Math.random() * computerCards.length);
-          }
-        
-      } else if (difficult === 'Hard') {
-      // Escolhe a carta mais forte do que a do adversario, porem a mais fraca do proprio baralho, se não houver, escolhe a que tem o menor stat
-      const bestCards = computerCards.filter((card) => card.stats[selectedStat].base_stat > playerSelectedCard.stats[selectedStat].base_stat).map((card) => card.stats[selectedStat].base_stat);
-      computerID = computerCards.findIndex((card) => card.stats[selectedStat].base_stat === Math.min.apply(Math, bestCards));
+  // Escolhe a carta mais forte do que a do adversario, porem a mais fraca do proprio baralho, se não houver, escolhe a que tem o menor stat
+  function hardPlayLater() {
+    const bestCards = computerCards.filter((card) => card.stats[selectedStat].base_stat > playerSelectedCard.stats[selectedStat].base_stat).map((card) => card.stats[selectedStat].base_stat);
+    let cardIndex = computerCards.findIndex((card) => card.stats[selectedStat].base_stat === Math.min.apply(Math, bestCards));
 
-        if (computerID === -1) {
-          const worstCards = computerCards.filter((card) => card.stats[selectedStat].base_stat <= playerSelectedCard.stats[selectedStat].base_stat).map((card) => card.stats[selectedStat].base_stat);
-          computerID = computerCards.findIndex((card) => card.stats[selectedStat].base_stat === Math.min.apply(Math, worstCards));
-        }
-      }
-
-      setTimeout(() => {
-        setComputerSelectedCard(computerCards[computerID])
-        setComputerCards(computerCards.filter((card, index) => index !== computerID))
-      }, 2000)
-      
-    } else if (turn === "Computer" && computerCards.length && !isObjectEmpty(playerSelectedCard) && !isObjectEmpty(computerSelectedCard)) {
-      // Escolhe uma carta e stat de forma aleatória
-      if (difficult === 'Easy') {
-        computerIndex = Math.floor(Math.random() * computerCards[0].stats.length);
-        computerID = Math.floor(Math.random() * computerCards.length);
-
-      } if (difficult === 'Medium') {
-        // Escolhe aleatoriamente um stat, e pega o mais forte
-        computerIndex = Math.floor(Math.random() * computerCards[0].stats.length);
-        const bestStat = computerCards.map((card) => card.stats[computerIndex].base_stat)
-        computerID = computerCards.findIndex((card) => card.stats[computerIndex].base_stat === Math.max.apply(Math, bestStat));
-
-      } else if (difficult === 'Hard') {
-      // Escolhe o melhor stat
-      const allStats = computerCards.map((card) => card.stats.map((stat) => stat.base_stat));
-      let bestStat = {value: 0, cardIndex: 0, statIndex: 0};
-    
-      allStats.forEach((array, cardIndex) => {
-       array.forEach((value, statIndex) => {
-        if(value > bestStat.value) {
-          bestStat.value = value;
-          bestStat.cardIndex = cardIndex;
-          bestStat.statIndex = statIndex;
-        }
-       })
-      })
-
-      computerID = bestStat.cardIndex;
-      computerIndex = bestStat.statIndex;
-      }
-
-      setTimeout(() => {
-        setSelectedStat(computerIndex)
-        setComputerSelectedCard(computerCards[computerID])
-        setComputerCards(computerCards.filter((card, index) => index !== computerID))
-        setTurn('Player');
-      }, 2000)
+    if (cardIndex === -1) {
+      const worstCards = computerCards.filter((card) => card.stats[selectedStat].base_stat <= playerSelectedCard.stats[selectedStat].base_stat).map((card) => card.stats[selectedStat].base_stat);
+      cardIndex = computerCards.findIndex((card) => card.stats[selectedStat].base_stat === Math.min.apply(Math, worstCards));
     }
 
+    return cardIndex;
+  }
 
-  }, [computerCards, setComputerCards, playerSelectedCard, computerSelectedCard, setComputerSelectedCard, setTurn, turn, difficult, selectedStat, setSelectedStat, isObjectEmpty])
+  // Joga de forma aleatoria (Varia entre as três dificuldades)
+  function humanPlayLater() {
+    const randomNumber = Math.floor(Math.random() * 3);
+    console.log('COMPUTAR JOGANDO DEPOIS: ' + randomNumber)
 
-  return {computerSelectedCard, setComputerSelectedCard};
+    switch(randomNumber) {
+      case 0:
+        return () => easyPlayLater();
+      case 1:
+        return () => mediumPlayLater();
+      case 2:
+        return () => hardPlayLater();
+      default:
+        return null;
+    }
+  }
 
+
+
+  // Escolhe uma carta e stat de forma aleatória
+  function easyPlayFirst() {
+    let statIndex = Math.floor(Math.random() * computerCards[0].stats.length);
+    let cardIndex = Math.floor(Math.random() * computerCards.length);
+
+    return {
+      cardIndex,
+      statIndex,
+    }
+  }
+
+  // Escolhe aleatoriamente um stat, e pega o mais forte
+  function mediumPlayFirst() {
+    const statIndex = Math.floor(Math.random() * computerCards[0].stats.length);
+    const bestStat = computerCards.map((card) => card.stats[statIndex].base_stat);
+    const cardIndex = computerCards.findIndex((card) => card.stats[statIndex].base_stat === Math.max.apply(Math, bestStat));
+
+    return {
+      cardIndex,
+      statIndex,
+    }
+  }
+
+  // Escolhe o melhor stat
+  function hardPlayFirst() {
+    const allStats = computerCards.map((card) => card.stats.map((stat) => stat.base_stat));
+    let bestStat = {value: 0, cardIndex: 0, statIndex: 0};
+  
+    allStats.forEach((array, cardIndex) => {
+     array.forEach((value, statIndex) => {
+      if(value > bestStat.value) {
+        bestStat.value = value;
+        bestStat.cardIndex = cardIndex;
+        bestStat.statIndex = statIndex;
+      }
+     })
+    })
+
+    return {
+      cardIndex: bestStat.cardIndex,
+      statIndex: bestStat.statIndex,
+    }
+  }
+
+  // Joga de forma aleatoria (Varia entre as três dificuldades)
+  function humanPlayFirst() {
+    const randomNumber = Math.floor(Math.random() * 3)
+    console.log('COMPUTAR JOGANDO PRIMEIRO: ' + randomNumber)
+
+    switch(randomNumber) {
+      case 0:
+        return () => easyPlayFirst();
+      case 1:
+        return () => mediumPlayFirst();
+      case 2:
+        return () => hardPlayFirst();
+      default:
+        return null;
+    }
+  }
+
+  return {
+    playLater: {
+      easy: () => easyPlayLater(),
+      medium: () => mediumPlayLater(),
+      hard: () => hardPlayLater(),
+      human: () => humanPlayLater(),
+    },
+
+    playFirst: {
+      easy: () => easyPlayFirst(),
+      medium: () => mediumPlayFirst(),
+      hard: () => hardPlayFirst(),
+      human: () => humanPlayFirst(),
+    }
+  };
 }
 
 export {useComputer}

@@ -33,10 +33,10 @@ const Menu = () => {
         <div>
           <span>Escolha a dificuldade</span>
           <ButtonContainer>
-            <Easy onClick={() => setDifficult('Easy')} selected={difficult}>Fácil</Easy>
-            <Medium onClick={() => setDifficult('Medium')} selected={difficult}>Média</Medium>
-            <Hard onClick={() => setDifficult('Hard')} selected={difficult}>Difícil</Hard>
-            <Human onClick={() => setDifficult('Human')} selected={difficult}>Humana</Human>
+            <Easy onClick={() => setDifficult('easy')} selected={difficult}>Fácil</Easy>
+            <Medium onClick={() => setDifficult('medium')} selected={difficult}>Média</Medium>
+            <Hard onClick={() => setDifficult('hard')} selected={difficult}>Difícil</Hard>
+            <Human onClick={() => setDifficult('human')} selected={difficult}>Humana</Human>
           </ButtonContainer>
           
           <DifficultDescription selected={difficult}>

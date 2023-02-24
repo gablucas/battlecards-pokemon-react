@@ -4,33 +4,31 @@ import { FakeCard } from '../Card/styles';
 import { Container, Player, Battle, Computer, Score } from './styles';
 import computer from '../../../assets/others/computer.png';
 import { useStartgame } from '../../../hooks/useStartgame';
-import { useComputer } from '../../../hooks/useComputer';
 import { useScore } from '../../../hooks/useScore';
 import { useRound } from '../../../hooks/useRound';
 import usePlayer from '../../../hooks/usePlayer';
 import { GlobalContext } from '../../Context';
 import { useNavigate } from 'react-router-dom';
 import useUtilies from '../../../hooks/useUtilies';
+import { useBattle } from '../../../hooks/useBattle';
 
 const Game = () => {
-  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard } = React.useContext(GlobalContext)
+  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, animate } = React.useContext(GlobalContext)
   const getCards = useStartgame();
-  useComputer();
   const score = useScore()
-  const {round, scoreRound} = useRound(getCards, score)
+  const {round, scoreRound} = useRound(score)
   const PlayerTurn = usePlayer();
   const navigate = useNavigate();
   const { isObjectEmpty } = useUtilies();
-
+  useBattle();
 
   React.useEffect(() => {
     if (startGame) {
-      getCards()
+      getCards();
     } else {
-      navigate('/')
+      navigate('/');
     }
   }, [getCards, startGame, navigate])
-
 
 
 return (
@@ -53,7 +51,7 @@ return (
         <img src={computer} alt="" />
         <div>
           {computerCards.map((card, index) => (
-            <FakeCard key={index} />
+            <FakeCard key={index} animationTime={(index + 1) * .3}/>
           ))}
         </div>
       </Computer>
@@ -65,7 +63,7 @@ return (
 
       <Player>
         {playerCards.map((card, index) => (
-          <Card key={index} data={card} id={index} selectAttribute={PlayerTurn} />
+          <Card key={index} data={card} id={index} selectAttribute={PlayerTurn} animationTime={(index + 1) * .3} />
         ))}
       </Player>
     </Container>

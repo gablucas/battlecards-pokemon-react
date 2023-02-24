@@ -4,11 +4,11 @@ import useUtilies from '../hooks/useUtilies';
 
 const useScore = () => {
   const [score, setScore] = React.useState({total: 0, player: 0, computer: 0});
-  const {playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard, selectedStat, setTurn} = React.useContext(GlobalContext);
+  const {playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard, selectedStat, setTurn, setAnimate} = React.useContext(GlobalContext);
   const {isObjectEmpty} = useUtilies();
 
   React.useEffect(() => {
-    
+      
     if (isObjectEmpty(playerSelectedCard) && isObjectEmpty(computerSelectedCard)) {
 
       setTimeout(() => {
@@ -23,12 +23,15 @@ const useScore = () => {
           setScore(scoreboard => ({...scoreboard, total: scoreboard.total + 1, computer: scoreboard.computer + 1}))
           setTurn('Computer');
         }
-  
+
         setPlayerSelectedCard({});
         setComputerSelectedCard({});
-      }, 3000)
+        setAnimate(false)
+
+
+      }, 2000)
     }
-  }, [computerSelectedCard, playerSelectedCard, setComputerSelectedCard, setPlayerSelectedCard, setTurn, selectedStat, isObjectEmpty])
+  }, [computerSelectedCard, playerSelectedCard, setComputerSelectedCard, setPlayerSelectedCard, setTurn, selectedStat, isObjectEmpty, setAnimate])
 
 
   return score;

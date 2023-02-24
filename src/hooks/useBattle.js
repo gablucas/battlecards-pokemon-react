@@ -1,48 +1,43 @@
 import React from "react";
+import { GlobalContext } from "../Components/Context";
+import { useComputer } from "./useComputer";
+import useUtilies from "../hooks/useUtilies";
 
-const useBattle = (computerCards, setComputerCards, playerSelectedCard, turn, setTurn) => {
+const useBattle = () => {
+  const { computerCards, setComputerCards, computerSelectedCard, setComputerSelectedCard, playerSelectedCard, setSelectedStat, turn, setTurn, difficult, setAnimate } = React.useContext(GlobalContext);
+  const { playFirst, playLater } = useComputer();
+  const { isObjectEmpty } = useUtilies();
 
   React.useEffect(() => {
-
-    if (turn === 'Computer' && playerSelectedCard.card && !computerSelectedCard.card) {
-      // Escolhe uma carta de forma aleatória
-      if (difficult === 'Easy') {
-        
-
-      } else if (difficult === "Medium") {
-
-        
-      } else if (difficult === 'Hard') {
-
+    if (turn === 'Computer' && isObjectEmpty(playerSelectedCard) && !isObjectEmpty(computerSelectedCard)) {
+      
+      let computerCard = playLater[difficult]();
+      if (difficult === 'human') {
+        computerCard = computerCard();
       }
 
+      
       setTimeout(() => {
-        setComputerSelectedCard({card:computerCards[computerID], statName, statIndex})
-        setComputerCards(computerCards.filter((card, index) => index !== computerID))
+        setComputerSelectedCard(computerCards[computerCard])
+        setComputerCards(computerCards.filter((card, index) => index !== computerCard))
       }, 2000)
       
-    } else if (turn === "Computer" && !playerSelectedCard.card && !computerSelectedCard.card) {
-      // Escolhe uma carta e stat de forma aleatória
-      if (difficult === 'Easy') {
-
-
-      } if (difficult === 'Medium') {
-
-
-      } else if (difficult === 'Hard') {
-
+    } else if (turn === "Computer" && computerCards.length && !isObjectEmpty(playerSelectedCard) && !isObjectEmpty(computerSelectedCard)) {
+      let computerCard = playFirst[difficult]();
+      if (difficult === 'human') {
+        computerCard = computerCard();
       }
-
+      
       setTimeout(() => {
-        setComputerSelectedCard({card:computerCards[computerID], statIndex: computerIndex})
-        setComputerCards(computerCards.filter((card, index) => index !== computerID))
+        setSelectedStat(computerCard.statIndex)
+        setComputerSelectedCard(computerCards[computerCard.cardIndex])
+        setComputerCards(computerCards.filter((card, index) => index !== computerCard.cardIndex))
         setTurn('Player');
-      }, 2000)
+        setAnimate(true);
+      }, 3000)
     }
 
-
-  }, [])
-
+  }, [playerSelectedCard ,computerCards, setComputerCards, computerSelectedCard, setComputerSelectedCard, turn, setTurn, setSelectedStat, isObjectEmpty, difficult, playFirst, playLater, setAnimate])
 
 }
 
