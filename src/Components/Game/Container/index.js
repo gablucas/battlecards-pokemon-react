@@ -13,14 +13,16 @@ import useUtilies from '../../../hooks/useUtilies';
 import { useBattle } from '../../../hooks/useBattle';
 
 const Game = () => {
-  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, animate } = React.useContext(GlobalContext)
+  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, score, animate } = React.useContext(GlobalContext)
   const getCards = useStartgame();
-  const score = useScore()
-  const {round, scoreRound} = useRound(score)
+  useScore();
+  const {round} = useRound();
   const PlayerTurn = usePlayer();
   const navigate = useNavigate();
   const { isObjectEmpty } = useUtilies();
   useBattle();
+
+  // console.log(score)
 
   React.useEffect(() => {
     if (startGame) {
@@ -38,12 +40,12 @@ return (
 
         <div>
           <span>Você</span>
-          <span>{scoreRound.player}</span>
+          <span>{score.player.round}</span>
         </div>
 
         <div>
           <span>BMO</span>
-          <span>{scoreRound.computer}</span>
+          <span>{score.computer.round}</span>
         </div>
       </Score>
 

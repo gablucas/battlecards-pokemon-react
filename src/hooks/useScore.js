@@ -3,8 +3,7 @@ import { GlobalContext } from '../Components/Context';
 import useUtilies from '../hooks/useUtilies';
 
 const useScore = () => {
-  const [score, setScore] = React.useState({total: 0, player: 0, computer: 0});
-  const {playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard, selectedStat, setTurn, setAnimate} = React.useContext(GlobalContext);
+  const {score, setScore, playerSelectedCard, setPlayerSelectedCard, computerSelectedCard, setComputerSelectedCard, selectedStat, setTurn, setAnimate} = React.useContext(GlobalContext);
   const {isObjectEmpty} = useUtilies();
 
   React.useEffect(() => {
@@ -16,11 +15,11 @@ const useScore = () => {
         const computerStat = computerSelectedCard.stats[selectedStat].base_stat;
         
         if (playerStat > computerStat) {
-          setScore(scoreboard => ({...scoreboard, total: scoreboard.total + 1, player: scoreboard.player + 1}))
+          setScore(scoreboard => ({...scoreboard, total: {...scoreboard.total, turn: scoreboard.total.turn + 1}, player: {...scoreboard.player, turn: scoreboard.player.turn + 1}}))
           setTurn('Player');
           
-        } else {
-          setScore(scoreboard => ({...scoreboard, total: scoreboard.total + 1, computer: scoreboard.computer + 1}))
+        } else if (computerStat > playerStat) {
+          setScore(scoreboard => ({...scoreboard, total: {...scoreboard.total, turn: scoreboard.total.turn + 1}, computer: {...scoreboard.computer, turn: scoreboard.computer.turn + 1}}))
           setTurn('Computer');
         }
 
@@ -31,7 +30,7 @@ const useScore = () => {
 
       }, 2000)
     }
-  }, [computerSelectedCard, playerSelectedCard, setComputerSelectedCard, setPlayerSelectedCard, setTurn, selectedStat, isObjectEmpty, setAnimate])
+  }, [computerSelectedCard, playerSelectedCard, setComputerSelectedCard, setPlayerSelectedCard, setTurn, setScore, selectedStat, isObjectEmpty, setAnimate])
 
 
   return score;
