@@ -15,6 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     -webkit-font-smoothing: antialised;
     height: 100vh;
+    overflow-y: hidden;
     background: url(${background}) center no-repeat;
   }
   
