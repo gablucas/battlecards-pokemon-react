@@ -101,3 +101,93 @@ export const Score = styled.div`
     background: orangered;
   }
 `
+const turnIndicator = keyframes`
+
+0% {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+50%, 75% {
+  opacity: 1;
+  transform: translateX(-50%);
+}
+
+100% {
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+`
+
+export const TurnIndicator = styled.span`
+  position: absolute;
+  left: 50%;
+  opacity: 0;
+  
+  animation: ${turnIndicator} 2s;
+`
+
+export const finalGame = keyframes`
+
+0% {
+  opacity: 0;
+  transform: translate(-100%, -50%);
+}
+
+`
+
+export const FinalGame = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  padding: 40px;
+  border-top: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  box-shadow: 0 0 0 2px #FFA700, 0 0 0 4px #ffd689, 0 0 0 6px #000000;
+  background: rgba(255, 255, 255, .9);
+  transform: translate(0%, -50%);
+  animation: ${finalGame} .6s;
+  
+  position: absolute;
+  top: 50%;
+  left: 0px;
+
+  span {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+  }
+
+  button {
+    color: #FFFFFF;
+  }
+
+  button + button {
+    margin-left: 40px;
+  }
+`
+
+const Button = styled.button`
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #000000;
+  box-shadow: 0 0 0 2px #FFA700, 0 0 0 4px #000000;
+  filter: grayscale(1);
+
+  &:hover {
+    filter: grayscale(0);
+  }
+`
+
+export const PlayAgain = styled(Button)`
+  background: #8800C7;
+`
+
+export const GoMenu = styled(Button)`
+  background: #8800C7;
+`

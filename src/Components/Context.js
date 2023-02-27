@@ -3,7 +3,7 @@ import React from 'react';
 export const GlobalContext = React.createContext();
 
 const ContextProvider = ({ children }) => {
-  const cardsQuantity = 6;
+  const cardsQuantity = 2;
   const [startGame, setStartGame] = React.useState(false);
   const [mode, setMode] = React.useState(null);
   const [difficult, setDifficult] = React.useState(null);
@@ -14,6 +14,8 @@ const ContextProvider = ({ children }) => {
   const [playerSelectedCard, setPlayerSelectedCard] = React.useState({});
   const [computerSelectedCard, setComputerSelectedCard] = React.useState({});
   const [score, setScore] = React.useState({total: {turn: 0, round: 0}, player: {turn: 0, round: 0}, computer: {turn: 0, round: 0}});
+  const [round, setRound] = React.useState(1);
+  const [finalGame, setFinalGame] = React.useState(false);
   const [animate, setAnimate] = React.useState(false);
 
   return (
@@ -28,6 +30,8 @@ const ContextProvider = ({ children }) => {
       startGame, setStartGame, 
       selectedStat, setSelectedStat, 
       turn, setTurn,
+      round, setRound,
+      finalGame, setFinalGame,
       score, setScore,
       animate, setAnimate,
        }}>

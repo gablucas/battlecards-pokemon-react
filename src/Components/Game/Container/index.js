@@ -1,7 +1,7 @@
 import React from 'react';
 import Card, { BattleCard } from '../Card';
 import { FakeCard } from '../Card/styles';
-import { Container, Player, Battle, Computer, Score } from './styles';
+import { Container, TurnIndicator, Player, Battle, Computer, Score, FinalGame, PlayAgain, GoMenu } from './styles';
 import computer from '../../../assets/others/computer.png';
 import { useStartgame } from '../../../hooks/useStartgame';
 import { useScore } from '../../../hooks/useScore';
@@ -11,18 +11,19 @@ import { GlobalContext } from '../../Context';
 import { useNavigate } from 'react-router-dom';
 import useUtilies from '../../../hooks/useUtilies';
 import { useBattle } from '../../../hooks/useBattle';
+import useRestartGame from '../../../hooks/useRestartGame';
 
 const Game = () => {
-  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, score, animate } = React.useContext(GlobalContext)
+  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, score, turn, round, finalGame } = React.useContext(GlobalContext)
   const getCards = useStartgame();
   useScore();
-  const {round} = useRound();
+  useRound();
   const PlayerTurn = usePlayer();
   const navigate = useNavigate();
   const { isObjectEmpty } = useUtilies();
   useBattle();
+  const {restartMatch, restartGame} = useRestartGame();
 
-  // console.log(score)
 
   React.useEffect(() => {
     if (startGame) {
@@ -35,6 +36,8 @@ const Game = () => {
 
 return (
     <Container>
+      {turn === 'Player' ? <TurnIndicator key={'player'}>Sua vez</TurnIndicator> : <TurnIndicator key={'BMO'}>Vez do BMO</TurnIndicator>}
+
       <Score>
         <span>Round: {round}</span>
 
@@ -68,6 +71,15 @@ return (
           <Card key={index} data={card} id={index} selectAttribute={PlayerTurn} animationTime={(index + 1) * .3} />
         ))}
       </Player>
+
+      {finalGame && (<FinalGame>
+        <span>{score.player.round === 2 ? 'Voce Ganhou' : 'BMO Ganhou'}</span>
+
+        <div>
+          <PlayAgain onClick={restartMatch}>Jogar novamente</PlayAgain>
+          <GoMenu onClick={restartGame}>Voltar para o menu</GoMenu>
+        </div>
+      </FinalGame>)}
     </Container>
   )
 }
