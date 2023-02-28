@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/battle-cards-pokemon-react/static/js/main.888654f8.js",
+    "main.js": "/battle-cards-pokemon-react/static/js/main.d855cfd2.js",
     "static/media/cardback.png": "/battle-cards-pokemon-react/static/media/cardback.a1b1ea9f7b43f10f4931.png",
     "static/media/background.png": "/battle-cards-pokemon-react/static/media/background.b9062fefbd996b726bdc.png",
     "static/media/cardfront.png": "/battle-cards-pokemon-react/static/media/cardfront.356ef0341f2397d1d582.png",
     "static/media/logo.png": "/battle-cards-pokemon-react/static/media/logo.dae895b20a454befeea4.png",
     "index.html": "/battle-cards-pokemon-react/index.html",
     "static/media/pokemonbg.svg": "/battle-cards-pokemon-react/static/media/pokemonbg.680271efbeb8249cdc13cd2f6de8991a.svg",
-    "main.888654f8.js.map": "/battle-cards-pokemon-react/static/js/main.888654f8.js.map"
+    "main.d855cfd2.js.map": "/battle-cards-pokemon-react/static/js/main.d855cfd2.js.map"
   },
   "entrypoints": [
-    "static/js/main.888654f8.js"
+    "static/js/main.d855cfd2.js"
   ]
 }
