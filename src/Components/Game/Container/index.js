@@ -2,7 +2,6 @@ import React from 'react';
 import Card, { BattleCard } from '../Card';
 import { FakeCard } from '../Card/styles';
 import { Container, TurnIndicator, Player, Computer, Score, FinalGame, PlayAgain, GoMenu } from './styles';
-import computer from '../../../assets/others/computer.png';
 import { useStartgame } from '../../../hooks/useStartgame';
 import { useScore } from '../../../hooks/useScore';
 import { useRound } from '../../../hooks/useRound';
@@ -14,7 +13,7 @@ import { useBattle } from '../../../hooks/useBattle';
 import useRestartGame from '../../../hooks/useRestartGame';
 
 const Game = () => {
-  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, score, turn, round, finalGame, animate } = React.useContext(GlobalContext)
+  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, score, turn, round, animate } = React.useContext(GlobalContext)
   const getCards = useStartgame();
   useScore();
   useRound();
@@ -36,24 +35,26 @@ const Game = () => {
 
 return (
     <Container>
-      {turn === 'Player' ? <TurnIndicator turn={turn} key={'player'}>Sua vez</TurnIndicator> : <TurnIndicator key={'BMO'}>Vez do BMO</TurnIndicator>}
+      {turn === 'Player' ? <TurnIndicator turn={turn} key={'player'}>Sua vez</TurnIndicator> : <TurnIndicator key={'Com'}>Vez do Computador</TurnIndicator>}
 
       <Score>
         <span>Round: {round}</span>
 
         <div>
-          <span>Você</span>
+          <span>Você:</span>
           <span>{score.player.round}</span>
         </div>
 
         <div>
-          <span>BMO</span>
+          <span>Com:</span>
           <span>{score.computer.round}</span>
         </div>
       </Score>
 
+        {isObjectEmpty(playerSelectedCard) && <BattleCard data={playerSelectedCard} card={'player'} />}
+        {isObjectEmpty(computerSelectedCard) && <BattleCard data={computerSelectedCard} />}
+      
       <Computer>
-        <img src={computer} alt="" />
         <div>
           {computerCards.map((card, index) => (
             <FakeCard key={index} animationTime={(index + 1) * .3}/>
@@ -61,20 +62,14 @@ return (
         </div>
       </Computer>
 
-      <div>
-        {isObjectEmpty(playerSelectedCard) && <BattleCard data={playerSelectedCard} card={'player'} />}
-        {isObjectEmpty(computerSelectedCard) && <BattleCard data={computerSelectedCard} />}
-      </div>
-      
-
       <Player>
         {playerCards.map((card, index) => (
           <Card key={index} data={card} id={index} selectAttribute={PlayerTurn} animationTime={(index + 1) * .3} />
         ))}
       </Player>
 
-      {finalGame && (<FinalGame>
-        <span>{score.player.round === 2 ? 'Voce Ganhou' : 'BMO Ganhou'}</span>
+      {animate.finalGame === true && (<FinalGame>
+        <span>{score.player.round === 2 ? 'Voce Ganhou' : 'Computador Ganhou'}</span>
 
         <div>
           <PlayAgain onClick={restartMatch}>Jogar novamente</PlayAgain>

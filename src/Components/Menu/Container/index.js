@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../Context';
 import logo from '../../../assets/logo.png'
 
-import { Elimination, ButtonContainer, Container, ModeDescription, DifficultDescription, Easy, Hard, Human, Medium, StartGame, Trunfo } from './styles'
+import { DifficultButtons, Container, DifficultDescription, Easy, Hard, Human, Medium, StartGame } from './styles'
+import useRestartGame from '../../../hooks/useRestartGame';
 
 
 function firstToPlay() {
@@ -20,43 +21,33 @@ function firstToPlay() {
 }
 
 const Menu = () => {
-  const { mode, setMode, difficult, setDifficult, setStartGame, setTurn } = React.useContext(GlobalContext);
+  const { difficult, setDifficult, setStartGame, setTurn } = React.useContext(GlobalContext);
+  const { restartMatch } = useRestartGame();
+
   const navigate = useNavigate()
 
   function handleStartGame() {
-    if (mode && difficult) {
+    if (difficult) {
+      restartMatch();
       setStartGame(true);
-      console.log(firstToPlay())
       setTurn(firstToPlay())
       navigate('/game');
     }
   }
+
 
   return (
     <Container>
       <img src={logo} alt="" />
 
       <div>
-        <span>Escolha o modo do jogo</span>
-        <ButtonContainer>
-          <Elimination onClick={() => setMode('Elimination')} selected={mode}>Eliminação</Elimination>
-          <Trunfo onClick={() => setMode('Trunfo')} selected={mode}>Super-Trunfo</Trunfo>
-        </ButtonContainer>
-
-        <ModeDescription selected={mode}>
-          <p>Neste modo as cartas jogadas em campo são eliminadas a cada confronto, vence quem ganhar mais vezes no confronto </p>
-          <p>Neste modo as cartas jogadas em campo são passadas para o vencedor do confronto, vence quem conseguir todas as cartas do adversário</p>
-        </ModeDescription>
-      </div>
-
-      <div>
         <span>Escolha a dificuldade</span>
-        <ButtonContainer>
+        <DifficultButtons>
           <Easy onClick={() => setDifficult('easy')} selected={difficult}>Fácil</Easy>
           <Medium onClick={() => setDifficult('medium')} selected={difficult}>Média</Medium>
           <Hard onClick={() => setDifficult('hard')} selected={difficult}>Difícil</Hard>
           <Human onClick={() => setDifficult('human')} selected={difficult}>Humana</Human>
-        </ButtonContainer>
+        </DifficultButtons>
         
         <DifficultDescription selected={difficult}>
           <p>Seu adversário tomara decisões variadas</p>
@@ -64,10 +55,9 @@ const Menu = () => {
           <p>Seu adversário vai jogar querendo te vencer</p>
           <p>Seu adversário vai jogar pra valer</p>
         </DifficultDescription>
-
       </div>
 
-      <StartGame mode={mode} difficult={difficult} onClick={handleStartGame}>Iniciar Jogo</StartGame>
+      <StartGame difficult={difficult} onClick={handleStartGame}>Iniciar Jogo</StartGame>
     </Container>
   )
 }
