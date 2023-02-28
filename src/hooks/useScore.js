@@ -25,9 +25,8 @@ const useScore = () => {
 
         setPlayerSelectedCard({});
         setComputerSelectedCard({});
-        setAnimate(false)
-
-
+        setAnimate(animate => ({...animate, computerStat: false}))
+        
       }, 2000)
     }
   }, [computerSelectedCard, playerSelectedCard, setComputerSelectedCard, setPlayerSelectedCard, setTurn, setScore, selectedStat, isObjectEmpty, setAnimate])

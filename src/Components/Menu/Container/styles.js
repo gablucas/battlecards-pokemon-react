@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const Container = styled.section`
   display: grid;
-  grid-template-rows: 246px 194px auto;
-  justify-content: center;
-  align-content: center;
-  gap: 20px;
-  height: 100vh;
-  width: 600px;
+  justify-items: center;
+  gap: 40px;
   margin: 0 auto;
   color: #FFFFFF;
+
+  img {
+    height: 240px;
+  }
 
   & > div {
     display: flex;
@@ -75,6 +75,7 @@ export const Human = styled(Button)`
 `
 
 export const StartGame = styled(Button)`
+  width: 20vw;
   background: #0989D0;
 
   filter: ${props => props.mode && props.difficult && 'grayscale(0)'};

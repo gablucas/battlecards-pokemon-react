@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components";
 export const Container = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
-  padding: 40px;
+  align-content: end;
 `
 
 export const Computer = styled.div`
@@ -30,31 +30,6 @@ export const Computer = styled.div`
     left: 50%;
     transform: translateX(-50%);
     z-index: -1000;
-  }
-`
-
-const toDown = keyframes`
-  from {
-    opacity: 0;
-    top: 50px;
-  }
-`
-
-export const Battle = styled.div`
-  position: relative;
-
-  & > div {
-    position: absolute;
-    top: 100px;
-    animation: ${toDown} 1s;
-  }
-
-  & > div:nth-child(1) {
-    left: 30%;
-  }
-
-  & > div:nth-child(2) {
-    right: 30%;
   }
 `
 
@@ -94,18 +69,18 @@ export const Score = styled.div`
   }
 
   div:nth-child(2) {
-    background: fuchsia;
+    background: #0989D0;
   }
 
   div:nth-child(3) {
-    background: orangered;
+    background: #FE0000;
   }
 `
 const turnIndicator = keyframes`
 
 0% {
   opacity: 0;
-  transform: translateX(-100px);
+  transform: translateX(-300px);
 }
 
 50%, 75% {
@@ -115,7 +90,7 @@ const turnIndicator = keyframes`
 
 100% {
   opacity: 0;
-  transform: translateX(100px);
+  transform: translateX(200px);
 }
 
 `
@@ -124,7 +99,15 @@ export const TurnIndicator = styled.span`
   position: absolute;
   left: 50%;
   opacity: 0;
-  
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+  font-weight: 900;
+  text-align: center;
+  padding: 4px 20px;
+
+  color: #FFFFFF;
+
+
   animation: ${turnIndicator} 2s;
 `
 
@@ -149,7 +132,7 @@ export const FinalGame = styled.div`
   box-shadow: 0 0 0 2px #FFA700, 0 0 0 4px #ffd689, 0 0 0 6px #000000;
   background: rgba(255, 255, 255, .9);
   transform: translate(0%, -50%);
-  animation: ${finalGame} .6s;
+  animation: ${finalGame} .3s;
   
   position: absolute;
   top: 50%;
@@ -177,17 +160,20 @@ const Button = styled.button`
   border-radius: 10px;
   border: 2px solid #000000;
   box-shadow: 0 0 0 2px #FFA700, 0 0 0 4px #000000;
-  filter: grayscale(1);
-
-  &:hover {
-    filter: grayscale(0);
-  }
 `
 
 export const PlayAgain = styled(Button)`
   background: #8800C7;
+
+  &:hover {
+    background: #9d0ce0;
+  }
 `
 
 export const GoMenu = styled(Button)`
-  background: #8800C7;
+  background: #4B974C;
+  
+  &:hover {
+    background: #60af61;
+  }
 `

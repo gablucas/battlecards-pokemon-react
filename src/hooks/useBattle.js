@@ -33,7 +33,7 @@ const useBattle = () => {
         setComputerSelectedCard(computerCards[computerCard.cardIndex])
         setComputerCards(computerCards.filter((card, index) => index !== computerCard.cardIndex))
         setTurn('Player');
-        setAnimate(true);
+        setAnimate(animate => ({...animate, computerStat: true}));
       }, 3000)
     }
 
