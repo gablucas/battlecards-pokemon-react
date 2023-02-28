@@ -1,6 +1,7 @@
 import React from 'react';
 import { GlobalContext } from '../Components/Context';
 
+
 const useStartgame = () => {
   const {cardsQuantity, setPlayerCards, setComputerCards} = React.useContext(GlobalContext);
 

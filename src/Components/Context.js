@@ -3,7 +3,7 @@ import React from 'react';
 export const GlobalContext = React.createContext();
 
 const ContextProvider = ({ children }) => {
-  const cardsQuantity = 2;
+  const cardsQuantity = 6;
   const [startGame, setStartGame] = React.useState(false);
   const [mode, setMode] = React.useState(null);
   const [difficult, setDifficult] = React.useState(null);

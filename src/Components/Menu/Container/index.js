@@ -5,13 +5,29 @@ import logo from '../../../assets/logo.png'
 
 import { Elimination, ButtonContainer, Container, ModeDescription, DifficultDescription, Easy, Hard, Human, Medium, StartGame, Trunfo } from './styles'
 
+
+function firstToPlay() {
+  const random = Math.floor(Math.random () * 2) + 1;
+
+  switch(random) {
+    case 1:
+      return 'Player';
+    case 2:
+      return 'Computer';
+    default:
+      return '';
+  }
+}
+
 const Menu = () => {
-  const { mode, setMode, difficult, setDifficult, setStartGame } = React.useContext(GlobalContext);
+  const { mode, setMode, difficult, setDifficult, setStartGame, setTurn } = React.useContext(GlobalContext);
   const navigate = useNavigate()
 
   function handleStartGame() {
     if (mode && difficult) {
       setStartGame(true);
+      console.log(firstToPlay())
+      setTurn(firstToPlay())
       navigate('/game');
     }
   }
