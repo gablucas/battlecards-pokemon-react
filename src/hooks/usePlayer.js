@@ -8,7 +8,7 @@ const usePlayer = () => {
 
   const { isObjectEmpty } = useUtilies();
 
-  function PlayerTurn(id, statIndex) {
+  function PlayerTurn(id, statIndex, e) {
     if (!isObjectEmpty(playerSelectedCard) && !isObjectEmpty(computerSelectedCard) && turn === "Player") {
       setSelectedStat(statIndex)
       setPlayerSelectedCard(playerCards[id]);

@@ -5,6 +5,7 @@ export const Container = styled.section`
   justify-items: center;
   gap: 40px;
   margin: 0 auto;
+  padding: 20px;
   color: #FFFFFF;
 
   img {
@@ -23,13 +24,41 @@ export const Container = styled.section`
     margin-bottom: 20px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
+
+  @media(max-width: 1024px) {
+    gap: 20px;
+    padding: 10px;
+
+    img {
+      height: 140px;
+    }
+
+    span {
+      font-size: 1.8rem;
+    }
+  }
+
+  @media(max-width: 425px) {
+    span {
+      font-size: 1.4rem;
+    }
+
+    img {
+      height: 100px;
+    }
+  }
 `
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  gap: 20px;
+export const DifficultButtons = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   justify-content: center;
+  gap: 20px;
   margin-bottom: 20px;
+
+  @media(max-width: 425px) {
+    grid-template-columns: initial;
+  }
 `
 
 const Button = styled.button`
@@ -44,7 +73,16 @@ const Button = styled.button`
   &:hover {
     filter: grayscale(0);
   }
+
+  @media(max-width: 1024px) {
+    font-size: 1rem;
+  }
+
+  @media(max-width: 425px) {
+    padding: 5px 10px;
+  }
 `
+
 export const Elimination = styled(Button)`
   filter: ${props => props.selected === 'Elimination' && 'grayscale(0)'};
   background: #8800C7;
@@ -75,13 +113,13 @@ export const Human = styled(Button)`
 `
 
 export const StartGame = styled(Button)`
-  width: 20vw;
+  width: 200px;
   background: #0989D0;
 
-  filter: ${props => props.mode && props.difficult && 'grayscale(0)'};
+  filter: ${props => props.difficult && 'grayscale(0)'};
 
   &:hover {
-    filter: ${props => props.mode && props.difficult ? 'brightness(1.2)' : 'grayscale(1)'};
+    filter: ${props => props.difficult ? 'brightness(1.2)' : 'grayscale(1)'};
   }
 `
 
@@ -98,16 +136,13 @@ export const Description = styled.div`
     text-align: center;
     word-break: break-all;
   }
-`
 
-export const ModeDescription = styled(Description)`
+  @media(max-width: 425px) {
+    padding: 5px 10px;
 
-  p:nth-child(1) {
-    display: ${props => props.selected === 'Elimination' && 'initial'};
-  }
-
-  p:nth-child(2) {
-    display: ${props => props.selected === 'Trunfo' && 'initial'};
+    p {
+      font-size: .800rem;
+    }
   }
 `
 

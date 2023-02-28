@@ -13,9 +13,9 @@ export const GlobalStyle = createGlobalStyle`
   body {
     max-width: 1920px;
     margin: 0 auto;
-    padding: 40px;
-    -webkit-font-smoothing: antialised;
     height: 100vh;
+
+    -webkit-font-smoothing: antialised;
     overflow-y: hidden;
     background: url(${background}) center no-repeat;
   }

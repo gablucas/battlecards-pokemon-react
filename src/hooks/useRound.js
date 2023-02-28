@@ -3,7 +3,7 @@ import { GlobalContext } from '../Components/Context';
 import { useStartgame } from './useStartgame';
 
 const useRound = () => {
-  const {cardsQuantity, score, setScore, setRound, setFinalGame} = React.useContext(GlobalContext);
+  const {cardsQuantity, score, setScore, setRound, setAnimate} = React.useContext(GlobalContext);
 
   const getCards = useStartgame();
   
@@ -30,9 +30,9 @@ const useRound = () => {
         getCards();
       }, 2000)
     } else if (score.player.round === 2 || score.computer.round === 2) {
-      setFinalGame(true);
+      setAnimate(animate => ({...animate, finalGame: true}))
     }
-  }, [getCards, score.total.round, score.player.round, score.computer.round, setRound, setFinalGame])
+  }, [getCards, score.total.round, score.player.round, score.computer.round, setRound, setAnimate])
 
 }
 

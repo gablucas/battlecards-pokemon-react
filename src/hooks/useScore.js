@@ -21,6 +21,8 @@ const useScore = () => {
         } else if (computerStat > playerStat) {
           setScore(scoreboard => ({...scoreboard, total: {...scoreboard.total, turn: scoreboard.total.turn + 1}, computer: {...scoreboard.computer, turn: scoreboard.computer.turn + 1}}))
           setTurn('Computer');
+        } else {
+          setTurn(turn => turn === 'Player' ? 'Computer' : 'Player')
         }
 
         setPlayerSelectedCard({});

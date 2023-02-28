@@ -1,70 +1,90 @@
 import styled, { keyframes } from "styled-components";
 
-
 export const Container = styled.div`
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 150px;
   align-content: end;
+  align-items: end;
+  height: 100vh;
+
+  @media(max-width: 425px) {
+    grid-template-rows: auto;
+    height: 94vh;
+  }
 `
 
 export const Computer = styled.div`
+  display: grid;
+  justify-content: center;
+  align-items: end;
 
   & > div {
     display: grid;
-    grid-template-columns: repeat(8, auto);
-    align-items: end;
+    grid-template-columns: repeat(7, auto);
     gap: 20px;
     
-    position: absolute;
-    top: 30vh;
-    left: 50%;
-    transform: translateX(-50%) scale(.6);
     z-index: -10;
   }
 
-  & img {
-    height: 500px;
-    
-    position: absolute;
-    top: 14%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: -1000;
+  @media(max-width: 1024px) {
+    overflow-x: hidden;
+  }
+
+  @media(max-width: 425px) {
+    display: none;
   }
 `
 
 export const Player = styled.div`
+
   display: grid;
-  grid-template-columns: repeat(8, auto);
+  grid-template-columns: repeat(7, auto);
   justify-content: center;
-  align-items: end;
+  justify-items: center;
+  align-content: end;
   gap: 20px;
-  height: calc(100vh - 80px);
+  margin-bottom: 20px;
+
+  @media(max-width: 1440px) {
+    gap: 10px;
+  }
+
+  @media(max-width: 1024px) {
+    overflow-x: scroll;
+  }
+
+  @media(max-width: 425px) {
+    justify-content: initial;
+  }
 `
 
 export const Score = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;;
-  font-size: 2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 1.6rem;
   font-weight: 800;
   color: #FFFFFF;
   border-radius: 8px;
   border: 2px solid #000000;
   box-shadow: 0 0 0 2px #FFA700, 0 0 0 4px #ffd689, 0 0 0 6px #000000;
   overflow: hidden;
-
+  z-index: -10;
   position: absolute;
+  top: 10px;
+  left: 10px;
+  
 
   & > span {
-    grid-column: 1/-1;
     text-align: center;
     background: #FFA700;
+    padding: 10px;
   }
   
   div {
-    display: grid;
-    justify-items: center;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
     
   }
 
@@ -74,6 +94,10 @@ export const Score = styled.div`
 
   div:nth-child(3) {
     background: #FE0000;
+  }
+
+  @media(max-width: 425px) {
+    font-size: 1rem;
   }
 `
 const turnIndicator = keyframes`
@@ -85,30 +109,39 @@ const turnIndicator = keyframes`
 
 50%, 75% {
   opacity: 1;
-  transform: translateX(-50%);
 }
 
 100% {
   opacity: 0;
-  transform: translateX(200px);
+  display: none;
 }
 
 `
 
 export const TurnIndicator = styled.span`
   position: absolute;
+  top: 10px;
   left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
   opacity: 0;
   font-size: 2.5rem;
   letter-spacing: 4px;
   font-weight: 900;
   text-align: center;
   padding: 4px 20px;
-
   color: #FFFFFF;
-
-
   animation: ${turnIndicator} 2s;
+
+  @media(max-width: 1280px) {
+    font-size: 2rem;
+    left: 70%;
+  }
+
+  @media(max-width: 425px) {
+    top: 70px;
+    font-size: 1rem;
+  }
 `
 
 export const finalGame = keyframes`
@@ -119,11 +152,11 @@ export const finalGame = keyframes`
 }
 
 `
-
 export const FinalGame = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
   align-items: center;
   width: 100vw;
   padding: 40px;
@@ -150,6 +183,19 @@ export const FinalGame = styled.div`
 
   button + button {
     margin-left: 40px;
+  }
+
+  @media(max-width: 425px) {
+
+    button + button {
+    margin-left: 0px;
+  }
+
+   div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+   }
   }
 `
 
