@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     max-width: 1920px;
     margin: 0 auto;
+    padding: 40px;
     -webkit-font-smoothing: antialised;
     height: 100vh;
     overflow-y: hidden;

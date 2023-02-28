@@ -16,7 +16,7 @@ const ContextProvider = ({ children }) => {
   const [score, setScore] = React.useState({total: {turn: 0, round: 0}, player: {turn: 0, round: 0}, computer: {turn: 0, round: 0}});
   const [round, setRound] = React.useState(1);
   const [finalGame, setFinalGame] = React.useState(false);
-  const [animate, setAnimate] = React.useState(false);
+  const [animate, setAnimate] = React.useState({loseTurn: '', computerStat: false});
 
   return (
     <GlobalContext.Provider value={{

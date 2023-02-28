@@ -27,11 +27,11 @@ return (
 
 export default Card
 
-const BattleCard = ({ data }) => {
+const BattleCard = ({ data, card }) => {
   const {selectedStat} = React.useContext(GlobalContext);
 
   return (
-      <ContainerBattleCard>
+      <ContainerBattleCard card={card} data={data}>
         <Content>
           <Name>{data.name}</Name>
 

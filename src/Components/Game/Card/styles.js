@@ -74,7 +74,7 @@ export const Stats = styled.ul`
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 `
 export const Stat = styled.li`
-  filter: ${props => props.animate && props.selectedStat && props.selectedStat !== props.thisStat ? 'brightness(.5)' : 'brightness(1)'};
+  filter: ${props => props.animate?.computerStat && props.selectedStat && props.selectedStat !== props.thisStat ? 'brightness(.5)' : 'brightness(1)'};
   display: flex;
   justify-content: space-between;
   padding: 2px 4px;
@@ -90,18 +90,26 @@ export const Stat = styled.li`
   span {
     font-weight: 800;
   }
-
 `
-
+const toDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+`
 
 export const ContainerBattleCard = styled.div`
   width: 240px;
-
   padding: 12px;
   border-radius: 10px;
-  background: linear-gradient(#FCD705, #e7c500);
+  background: ${props => props.card === 'player' ? 'linear-gradient(#FCD705, #e7c500)' : 'linear-gradient(#f74a4a, #FE0000)'};
+  
+  position: absolute;
+  top: 200px;
+  left: ${props => props.card === 'player' && '25%'};
+  right:  ${props => props.card !== 'player' && '25%'};
+  animation: ${toDown} .6s;
 `
-
 
 export const FakeCard = styled.div`
   width: 280px;
