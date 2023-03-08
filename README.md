@@ -1,7 +1,7 @@
 ## <h1 align='center'>![Pokemon Battlecards](https://user-images.githubusercontent.com/96196591/223866960-9e75c845-4441-41d0-93f3-677bea7f62ac.png)
 </h1>
 
-Este game foi criando utilizando React. **<a href='https://gablucas.github.io/battlecards-pokemon-react/' target="_blank">CLIQUE AQUI PARA JOGAR</a>**
+**<a href='https://gablucas.github.io/' target="_blank">CLIQUE AQUI PARA ACESSAR</a>**
 
 ## Como jogar
 Selecione uma das dificuldades e inicie o jogo, as cartas serão distribuídas e será decidido quem iniciará a partida, escolha o melhor atributo para vencer seu adversário. Vence aquele que ganhar mais rounds.
