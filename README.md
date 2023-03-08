@@ -12,3 +12,10 @@ Selecione uma das dificuldades e inicie o jogo, as cartas serão distribuídas e
 
 ### Demonstração da partida
 ![Pokemon Battlecards - partida](https://user-images.githubusercontent.com/96196591/223870449-758cca89-fd73-4073-9431-ae7431ae3b16.gif)
+
+## Tecnologias utilizadas
+- HTML
+- CSS
+- JavaScript
+- React
+- Styled Components
