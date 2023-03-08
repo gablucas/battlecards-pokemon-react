@@ -1,20 +1,25 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
+
 import ContextProvider from "./Components/Context";
 import Header from "./Components/Header/Container";
 import { GlobalStyle } from "./global/styles";
-
+import Menu from './Components/Menu/Container/index';
+import Game from './Components/Game/Container/index';
 
 function App() {
 
   return (
-    <>
+    <HashRouter>
       <ContextProvider>
+        <Routes>
+          <Route path="/" element={<Menu />} />
+          <Route path="game" element={<Game />} />
+        </Routes>
         <Header />
-        <Outlet />
         <GlobalStyle />
       </ContextProvider>
-    </>
+    </HashRouter>
   )
 }
 

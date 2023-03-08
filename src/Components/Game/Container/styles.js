@@ -223,3 +223,27 @@ export const GoMenu = styled(Button)`
     background: #60af61;
   }
 `
+
+const letterSpacing = keyframes`
+  to {
+    letter-spacing: 10px;
+  }
+`
+
+export const Loading = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 3rem;
+  font-weight: 800;
+  color: #FFA700;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  
+  animation: ${letterSpacing} 5s infinite;
+
+  @media(max-width: 425px) {
+    font-size: 2.8rem;
+  }
+`

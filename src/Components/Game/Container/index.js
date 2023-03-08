@@ -1,7 +1,7 @@
 import React from 'react';
 import Card, { BattleCard } from '../Card';
 import { FakeCard } from '../Card/styles';
-import { Container, TurnIndicator, Player, Computer, Score, FinalGame, PlayAgain, GoMenu } from './styles';
+import { Container, TurnIndicator, Player, Computer, Score, FinalGame, PlayAgain, GoMenu, Loading } from './styles';
 import { useStartgame } from '../../../hooks/useStartgame';
 import { useScore } from '../../../hooks/useScore';
 import { useRound } from '../../../hooks/useRound';
@@ -14,7 +14,8 @@ import useRestartGame from '../../../hooks/useRestartGame';
 
 const Game = () => {
   const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, score, turn, round, animate } = React.useContext(GlobalContext)
-  const getCards = useStartgame();
+  const { loading, getCards } = useStartgame();
+  
   useScore();
   useRound();
   const PlayerTurn = usePlayer();
@@ -35,7 +36,8 @@ const Game = () => {
 
 return (
     <Container>
-      {turn === 'Player' ? <TurnIndicator turn={turn} key={'player'}>Sua vez</TurnIndicator> : <TurnIndicator key={'Com'}>Vez do Computador</TurnIndicator>}
+      {loading && <Loading>Carregando...</Loading>}
+      {turn === 'Player' ? <TurnIndicator turn={turn} key={'player'}>Sua vez</TurnIndicator> : turn === 'Computer' ? <TurnIndicator key={'Com'}>Vez do Computador</TurnIndicator> : null}
 
       <Score>
         <span>Round: {round}</span>

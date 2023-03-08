@@ -7,7 +7,7 @@ const ContextProvider = ({ children }) => {
   const [startGame, setStartGame] = React.useState(false);
   const [difficult, setDifficult] = React.useState(null);
   const [selectedStat, setSelectedStat] = React.useState(null)
-  const [turn, setTurn] = React.useState('Player');
+  const [turn, setTurn] = React.useState('');
   const [playerCards, setPlayerCards] = React.useState([])
   const [computerCards, setComputerCards] = React.useState([]);
   const [playerSelectedCard, setPlayerSelectedCard] = React.useState({});

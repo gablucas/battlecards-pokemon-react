@@ -36,7 +36,6 @@ const useComputer = () => {
   // Joga de forma aleatoria (Varia entre as três dificuldades)
   function humanPlayLater() {
     const randomNumber = Math.floor(Math.random() * 3);
-    console.log('COMPUTAR JOGANDO DEPOIS: ' + randomNumber)
 
     switch(randomNumber) {
       case 0:
@@ -99,7 +98,6 @@ const useComputer = () => {
   // Joga de forma aleatoria (Varia entre as três dificuldades)
   function humanPlayFirst() {
     const randomNumber = Math.floor(Math.random() * 3)
-    console.log('COMPUTAR JOGANDO PRIMEIRO: ' + randomNumber)
 
     switch(randomNumber) {
       case 0:

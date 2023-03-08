@@ -5,7 +5,7 @@ import { useStartgame } from './useStartgame';
 const useRound = () => {
   const {cardsQuantity, score, setScore, setRound, setAnimate} = React.useContext(GlobalContext);
 
-  const getCards = useStartgame();
+  const { getCards } = useStartgame();
   
   React.useEffect(() => {
 

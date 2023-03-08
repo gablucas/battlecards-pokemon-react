@@ -2,39 +2,20 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../Context';
 import logo from '../../../assets/logo.png'
-
 import { DifficultButtons, Container, DifficultDescription, Easy, Hard, Human, Medium, StartGame } from './styles'
-import useRestartGame from '../../../hooks/useRestartGame';
 
-
-function firstToPlay() {
-  const random = Math.floor(Math.random () * 2) + 1;
-
-  switch(random) {
-    case 1:
-      return 'Player';
-    case 2:
-      return 'Computer';
-    default:
-      return '';
-  }
-}
 
 const Menu = () => {
-  const { difficult, setDifficult, setStartGame, setTurn } = React.useContext(GlobalContext);
-  const { restartMatch } = useRestartGame();
+  const { difficult, setDifficult, setStartGame } = React.useContext(GlobalContext);
 
   const navigate = useNavigate()
 
   function handleStartGame() {
     if (difficult) {
-      restartMatch();
       setStartGame(true);
-      setTurn(firstToPlay())
       navigate('/game');
     }
   }
-
 
   return (
     <Container>

@@ -142,6 +142,7 @@ export const ContainerBattleCard = styled.div`
   left: ${props => props.card === 'player' && '30vw'};
   right:  ${props => props.card !== 'player' && '30vw'};
   animation: ${toDown} .6s;
+  z-index: 999;
 
   @media(max-width: 1536px) {
     padding: 10px;
