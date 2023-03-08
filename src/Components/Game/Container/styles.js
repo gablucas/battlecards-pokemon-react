@@ -241,7 +241,7 @@ export const Loading = styled.span`
   color: #FFA700;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   
-  animation: ${letterSpacing} 5s infinite;
+  animation: ${letterSpacing} 5s infinite alternate;
 
   @media(max-width: 425px) {
     font-size: 2.8rem;
