@@ -22,6 +22,7 @@ const useScore = () => {
           setScore(scoreboard => ({...scoreboard, total: {...scoreboard.total, turn: scoreboard.total.turn + 1}, computer: {...scoreboard.computer, turn: scoreboard.computer.turn + 1}}))
           setTurn('Computer');
         } else {
+          setScore(scoreboard => ({...scoreboard, total: {...scoreboard.total, turn: scoreboard.total.turn + 1}}))
           setTurn(turn => turn === 'Player' ? 'Computer' : 'Player')
         }
 

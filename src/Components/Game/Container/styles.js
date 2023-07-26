@@ -244,6 +244,6 @@ export const Loading = styled.span`
   animation: ${letterSpacing} 5s infinite alternate;
 
   @media(max-width: 425px) {
-    font-size: 2.8rem;
+    font-size: 2rem;
   }
 `

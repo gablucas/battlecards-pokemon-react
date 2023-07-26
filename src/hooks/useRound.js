@@ -10,6 +10,7 @@ const useRound = () => {
   React.useEffect(() => {
 
     if (score.total.turn !== 0 && score.total.turn % cardsQuantity === 0) {
+      console.log('teset')
 
       if (score.player.turn > score.computer.turn) {
         setScore(scoreboard => ({...scoreboard, total: {turn: 0, round: scoreboard.total.round + 1}, player: {turn: 0, round: scoreboard.player.round + 1}}))
