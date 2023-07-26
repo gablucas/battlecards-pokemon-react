@@ -5,6 +5,7 @@ export const GlobalContext = React.createContext();
 const ContextProvider = ({ children }) => {
   const cardsQuantity = 6;
   const [startGame, setStartGame] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [difficult, setDifficult] = React.useState(null);
   const [selectedStat, setSelectedStat] = React.useState(null)
   const [turn, setTurn] = React.useState('');
@@ -20,6 +21,7 @@ const ContextProvider = ({ children }) => {
     <GlobalContext.Provider value={{
       cardsQuantity,
       playerCards, setPlayerCards,
+      loading, setLoading,
       computerCards, setComputerCards,
       playerSelectedCard,setPlayerSelectedCard,
       computerSelectedCard, setComputerSelectedCard,

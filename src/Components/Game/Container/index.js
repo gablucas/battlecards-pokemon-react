@@ -13,8 +13,8 @@ import { useBattle } from '../../../hooks/useBattle';
 import useRestartGame from '../../../hooks/useRestartGame';
 
 const Game = () => {
-  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, score, turn, round, animate } = React.useContext(GlobalContext)
-  const { loading, getCards } = useStartgame();
+  const { startGame, computerCards, playerCards, playerSelectedCard, computerSelectedCard, score, turn, round, animate, loading } = React.useContext(GlobalContext)
+  const { getCards } = useStartgame();
   
   useScore();
   useRound();
@@ -33,10 +33,9 @@ const Game = () => {
     }
   }, [getCards, startGame, navigate])
 
-
 return (
     <Container>
-      {loading && <Loading>Carregando...</Loading>}
+      {loading && <Loading>Round {round}</Loading>}
       {turn === 'Player' ? <TurnIndicator turn={turn} key={'player'}>Sua vez</TurnIndicator> : turn === 'Computer' ? <TurnIndicator key={'Com'}>Vez do Computador</TurnIndicator> : null}
 
       <Score>

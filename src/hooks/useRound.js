@@ -26,9 +26,7 @@ const useRound = () => {
   React.useEffect(() => {
     if (score.total.round > 0 && (score.total.round <= 1 || (score.player.round !== 2 && score.computer.round !== 2))) {
       setRound(round => round + 1);
-      setTimeout(() => {
-        getCards();
-      }, 2000)
+      getCards();
     } else if (score.player.round === 2 || score.computer.round === 2) {
       setAnimate(animate => ({...animate, finalGame: true}))
     }

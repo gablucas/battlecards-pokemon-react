@@ -16,7 +16,6 @@ const useBattle = () => {
         computerCard = computerCard();
       }
 
-      
       setTimeout(() => {
         setComputerSelectedCard(computerCards[computerCard])
         setComputerCards(computerCards.filter((card, index) => index !== computerCard))

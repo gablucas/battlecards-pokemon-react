@@ -9,7 +9,7 @@ const useRestartGame = () => {
 
   function restartMatch() {
     setScore({total: {turn: 0, round: 0}, player: {turn: 0, round: 0}, computer: {turn: 0, round: 0}});
-    setRound(0);
+    setRound(1);
     setAnimate(animate => ({ ...animate, finalGame: false }))
     getCards();
   }
@@ -18,7 +18,7 @@ const useRestartGame = () => {
     setStartGame(false);
     setDifficult(null);
     setScore({total: {turn: 0, round: 0}, player: {turn: 0, round: 0}, computer: {turn: 0, round: 0}});
-    setRound(0);
+    setRound(1);
     setAnimate(animate => ({ ...animate, finalGame: false }))
   }
 

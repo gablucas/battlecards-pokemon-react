@@ -82,7 +82,7 @@ export const Name = styled.span`
 
   /* Provisório para evitar a quebra do nome do pokemon */
   white-space: nowrap;
-  overflow-x: hidden;
+  overflow: hidden;
 `
 
 export const StyledImage = styled.div`
@@ -107,7 +107,7 @@ export const Stats = styled.ul`
   }
 `
 export const Stat = styled.li`
-  filter: ${props => props.animate?.computerStat && props.selectedStat && props.selectedStat !== props.thisStat ? 'brightness(.5)' : 'brightness(1)'};
+  filter: ${props => props.animate?.computerStat && props.selectedStat && (props.selectedStat !== props.thisStat) ? 'brightness(.5)' : 'brightness(1)'};
   display: flex;
   justify-content: space-between;
   padding: 2px 4px;
@@ -116,7 +116,7 @@ export const Stat = styled.li`
   cursor: pointer;
   transition: filter .3s;
 
-  li:hover {
+  &:hover {
     background: #C8C8C8;
   }
 

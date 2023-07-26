@@ -15,8 +15,7 @@ function firstToPlay() {
 }
 
 const useStartgame = () => {
-  const {cardsQuantity, setPlayerCards, setComputerCards, setTurn} = React.useContext(GlobalContext);
-  const [loading, setLoading] = React.useState(false);
+  const {cardsQuantity, setPlayerCards, setComputerCards, setTurn, setLoading} = React.useContext(GlobalContext);
 
   const getCards = React.useCallback(async () => {
     setLoading(true);
@@ -38,9 +37,9 @@ const useStartgame = () => {
       setTurn(firstToPlay());
       setLoading(false);
 
-  }, [cardsQuantity ,setPlayerCards ,setComputerCards, setTurn])
+  }, [cardsQuantity ,setPlayerCards ,setComputerCards, setTurn, setLoading])
 
-  return { loading, getCards};
+  return { getCards };
 
 }
 
